@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Login Page Styling (Linear & Stripe aesthetic)
+   ========================================================================== */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-app);
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-brand-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--brand-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+}
+
+.login-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-brand-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.login-brand-subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.login-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.login-title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.login-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.demo-pills-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.demo-pills-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.demo-pills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.demo-pill {
+  padding: 6px 8px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.demo-pill:hover {
+  background-color: var(--brand-accent-subtle);
+  color: var(--brand-accent);
+  border-color: var(--brand-accent-border);
+}
+
+.login-alert {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.login-alert-error {
+  background-color: var(--danger-subtle);
+  color: var(--danger);
+  border: 1px solid var(--danger-border);
+}
+
+.login-footer-info {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}

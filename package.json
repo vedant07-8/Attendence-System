@@ -1,0 +1,14 @@
+{
+  "name": "student-attendance-management-system",
+  "version": "1.0.0",
+  "description": "Production-ready Student Attendance Management System with Express, MongoDB & Vanilla Modern UI",
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "dev": "npm --prefix backend run dev",
+    "seed": "npm --prefix backend run seed",
+    "install:backend": "npm --prefix backend install"
+  },
+  "keywords": ["attendance", "student-management", "express", "mongodb"],
+  "author": "",
+  "license": "ISC"
+}

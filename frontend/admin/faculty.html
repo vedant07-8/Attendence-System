@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Faculty - SmartAttendance</title>
+  <meta name="description" content="Manage faculty instructors, assign departments, and view assigned subjects.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Action Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <div class="search-input-wrapper">
+            <i data-lucide="search"></i>
+            <input type="text" id="search-faculty" class="form-input" placeholder="Search by name, ID, department..." style="width: 280px;">
+          </div>
+        </div>
+        <button class="btn btn-primary" id="btn-add-faculty">
+          <i data-lucide="plus"></i>
+          <span>Add Faculty Member</span>
+        </button>
+      </div>
+
+      <!-- Table Card -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Faculty Name</th>
+              <th>Department</th>
+              <th>Email</th>
+              <th>Assigned Subjects</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="faculty-table-body">
+            <tr>
+              <td colspan="6" class="table-loader">
+                <div class="spinner"></div> Loading faculty directory...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Add / Edit Faculty Modal -->
+  <div class="modal-backdrop" id="faculty-modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title" id="faculty-modal-title">Add Faculty Member</div>
+        <button class="btn-icon-only" id="faculty-modal-close" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="faculty-form">
+        <div class="modal-body">
+          <input type="hidden" id="faculty-id">
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label for="faculty-name" class="form-label">Full Name *</label>
+              <input type="text" id="faculty-name" class="form-input" required placeholder="e.g. Dr. Alan Turing">
+            </div>
+            <div class="form-group">
+              <label for="faculty-emp-id" class="form-label">Employee ID *</label>
+              <input type="text" id="faculty-emp-id" class="form-input" required placeholder="e.g. FAC-CS-001">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="faculty-email" class="form-label">Email Address *</label>
+            <input type="email" id="faculty-email" class="form-input" required placeholder="faculty@college.edu">
+          </div>
+
+          <div class="form-group">
+            <label for="faculty-dept" class="form-label">Department *</label>
+            <input type="text" id="faculty-dept" class="form-input" required placeholder="e.g. Computer Engineering">
+          </div>
+
+          <div class="form-group" id="faculty-password-group">
+            <label for="faculty-password" class="form-label">Password * <span id="faculty-password-help" style="font-weight: 400; text-transform: none; color: var(--text-muted);">(Min 6 chars)</span></label>
+            <input type="password" id="faculty-password" class="form-input" placeholder="••••••••">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="faculty-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-faculty">Save Faculty</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/admin/faculty.js"></script>
+</body>
+</html>

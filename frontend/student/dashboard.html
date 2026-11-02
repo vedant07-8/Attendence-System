@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - SmartAttendance</title>
+  <meta name="description" content="Personal student attendance summary with real-time 75% eligibility status and recovery tracking.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Student Banner -->
+      <div class="card" style="margin-bottom: 24px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff;">
+        <div class="card-body" style="padding: 24px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
+          <div>
+            <div style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Enrolled Student</div>
+            <h2 id="student-name-display" style="font-size: var(--font-size-2xl); font-weight: 700; margin-top: 4px;">Loading...</h2>
+            <div style="display: flex; gap: 12px; margin-top: 8px; font-size: var(--font-size-sm); color: #cbd5e1;">
+              <span>Roll No: <strong id="student-roll-display" style="color: #ffffff;">-</strong></span>
+              <span>•</span>
+              <span>Class: <strong id="student-class-display" style="color: #ffffff;">-</strong></span>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: var(--font-size-xs); color: #94a3b8; text-transform: uppercase;">Overall Attendance</div>
+            <div id="hero-percentage" style="font-size: 2.75rem; font-weight: 800; line-height: 1.1; margin-top: 2px;">-%</div>
+            <div id="hero-status-badge" style="margin-top: 6px;">-</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eligibility Notice / Calculator Insight Card -->
+      <div id="eligibility-card" class="card" style="margin-bottom: 24px;">
+        <div class="card-body" style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div id="eligibility-icon" class="stat-icon" style="width: 40px; height: 40px; flex-shrink: 0;"></div>
+            <div>
+              <div id="eligibility-title" style="font-weight: 600; font-size: var(--font-size-base);">-</div>
+              <p id="eligibility-desc" style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-top: 2px;">-</p>
+            </div>
+          </div>
+          <a href="/student/calculator.html" class="btn btn-secondary btn-sm">
+            <i data-lucide="calculator"></i>
+            <span>Open 75% Calculator</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <section class="stat-grid" aria-label="Student Attendance Metrics">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Total Lectures</span>
+            <div class="stat-icon"><i data-lucide="calendar"></i></div>
+          </div>
+          <div class="stat-value" id="stat-total-held">-</div>
+          <div class="stat-subtext" style="color: var(--text-muted);">Scheduled academic sessions</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Lectures Attended</span>
+            <div class="stat-icon" style="color: var(--success);"><i data-lucide="check-circle-2"></i></div>
+          </div>
+          <div class="stat-value" style="color: var(--success);" id="stat-total-present">-</div>
+          <div class="stat-subtext" style="color: var(--text-muted);">Marked Present</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Missed Classes</span>
+            <div class="stat-icon" style="color: var(--danger);"><i data-lucide="x-circle"></i></div>
+          </div>
+          <div class="stat-value" style="color: var(--danger);" id="stat-total-absent">-</div>
+          <div class="stat-subtext" style="color: var(--text-muted);">Absences recorded</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">75% Target Deficit</span>
+            <div class="stat-icon"><i data-lucide="target"></i></div>
+          </div>
+          <div class="stat-value" id="stat-classes-needed">-</div>
+          <div class="stat-subtext" id="stat-needed-subtext" style="color: var(--text-secondary);">-</div>
+        </div>
+      </section>
+
+      <!-- Subject Breakdown Card -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><i data-lucide="book-open"></i> Subject-wise Attendance Breakdown</h2>
+            <p class="card-subtitle">Performance breakdown by course offering</p>
+          </div>
+          <a href="/student/subjects.html" class="btn btn-secondary btn-sm">Full Details</a>
+        </div>
+        <div class="card-body" style="padding: 0;">
+          <div class="table-container" style="border: none; box-shadow: none;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Subject Code</th>
+                  <th>Subject Title</th>
+                  <th>Instructor</th>
+                  <th>Attended / Total</th>
+                  <th>Attendance %</th>
+                  <th>75% Target Status</th>
+                </tr>
+              </thead>
+              <tbody id="student-subjects-tbody">
+                <tr>
+                  <td colspan="6" class="table-loader">
+                    <div class="spinner"></div> Loading subject records...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Records Card -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><i data-lucide="history"></i> Recent Attendance Entries</h2>
+            <p class="card-subtitle">Latest session marks recorded by your instructors</p>
+          </div>
+          <a href="/student/history.html" class="btn btn-secondary btn-sm">All Records</a>
+        </div>
+        <div class="card-body" style="padding: 0;">
+          <div class="table-container" style="border: none; box-shadow: none;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Subject Code</th>
+                  <th>Subject Title</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="student-recent-tbody">
+                <tr>
+                  <td colspan="4" class="table-loader">
+                    <div class="spinner"></div> Loading recent logs...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/student/dashboard.js"></script>
+</body>
+</html>

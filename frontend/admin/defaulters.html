@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Defaulters List (&lt;75%) - SmartAttendance</title>
+  <meta name="description" content="View students falling below the mandatory 75% attendance threshold with recovery calculations.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Top Filter & Action Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <select id="filter-class" class="form-select" style="width: 260px;">
+            <option value="">All Classes</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" id="btn-print-defaulters">
+            <i data-lucide="printer"></i>
+            <span>Print Report</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Warning Notice Card -->
+      <div style="background-color: var(--danger-subtle); border: 1px solid var(--danger-border); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
+        <i data-lucide="alert-triangle" style="color: var(--danger); width: 22px; height: 22px; flex-shrink: 0;"></i>
+        <div>
+          <strong style="color: var(--danger); font-size: var(--font-size-sm);">Mandatory 75% Attendance Requirement</strong>
+          <p style="color: var(--text-secondary); font-size: var(--font-size-xs); margin-top: 2px;">
+            The list below contains all students whose cumulative attendance is strictly below the mandatory 75% threshold.
+          </p>
+        </div>
+      </div>
+
+      <!-- Defaulters Table Card -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Roll Number</th>
+              <th>Student Name</th>
+              <th>Class</th>
+              <th>Total Held</th>
+              <th>Attended</th>
+              <th>Missed</th>
+              <th>Percentage</th>
+            </tr>
+          </thead>
+          <tbody id="defaulters-table-body">
+            <tr>
+              <td colspan="7" class="table-loader">
+                <div class="spinner"></div> Calculating defaulter statistics...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/admin/defaulters.js"></script>
+</body>
+</html>

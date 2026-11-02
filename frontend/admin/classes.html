@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Classes - SmartAttendance</title>
+  <meta name="description" content="Organize academic classes, sections, and department divisions.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Top Action Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <div class="search-input-wrapper">
+            <i data-lucide="search"></i>
+            <input type="text" id="search-class" class="form-input" placeholder="Search classes or departments..." style="width: 280px;">
+          </div>
+        </div>
+        <button class="btn btn-primary" id="btn-add-class">
+          <i data-lucide="plus"></i>
+          <span>Create New Class</span>
+        </button>
+      </div>
+
+      <!-- Classes Table Card -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Class Name</th>
+              <th>Department</th>
+              <th>Year</th>
+              <th>Division</th>
+              <th>Enrolled Students</th>
+              <th>Subjects</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="classes-table-body">
+            <tr>
+              <td colspan="7" class="table-loader">
+                <div class="spinner"></div> Loading classes...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Add / Edit Class Modal -->
+  <div class="modal-backdrop" id="class-modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title" id="class-modal-title">Create New Class</div>
+        <button class="btn-icon-only" id="class-modal-close" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="class-form">
+        <div class="modal-body">
+          <input type="hidden" id="class-id">
+
+          <div class="form-group">
+            <label for="class-name" class="form-label">Full Class Identifier *</label>
+            <input type="text" id="class-name" class="form-input" required placeholder="e.g. TY-CSE-A (3rd Year Computer Engineering - Section A)">
+          </div>
+
+          <div class="form-group">
+            <label for="class-dept" class="form-label">Department *</label>
+            <input type="text" id="class-dept" class="form-input" required placeholder="e.g. Computer Engineering">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label for="class-year" class="form-label">Academic Year (1-4) *</label>
+              <input type="number" id="class-year" class="form-input" required min="1" max="5" placeholder="3">
+            </div>
+            <div class="form-group">
+              <label for="class-div" class="form-label">Division / Section *</label>
+              <input type="text" id="class-div" class="form-input" required placeholder="A">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="class-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-class">Save Class</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/admin/classes.js"></script>
+</body>
+</html>

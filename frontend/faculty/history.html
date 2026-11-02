@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance History - SmartAttendance</title>
+  <meta name="description" content="View past attendance records, track historical participation, and audit lecture submissions.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <select id="filter-subject" class="form-select" style="width: 240px;">
+            <option value="">All My Subjects</option>
+          </select>
+          <input type="date" id="filter-start-date" class="form-input" style="width: 160px;" title="Start Date">
+          <span style="color: var(--text-muted);">to</span>
+          <input type="date" id="filter-end-date" class="form-input" style="width: 160px;" title="End Date">
+          <button class="btn btn-secondary" id="btn-filter-apply">Filter</button>
+        </div>
+      </div>
+
+      <!-- History Table Card -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Lecture Date</th>
+              <th>Subject Code</th>
+              <th>Subject Title</th>
+              <th>Class Section</th>
+              <th>Enrolled</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th>Attendance %</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body">
+            <tr>
+              <td colspan="9" class="table-loader">
+                <div class="spinner"></div> Loading attendance history...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/faculty/history.js"></script>
+</body>
+</html>

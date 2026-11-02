@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartAttendance - Student Attendance Management System</title>
+  <meta name="description" content="Commercial-grade student attendance management system with real-time analytics, automated defaulter tracking, and predictive 75% calculator.">
+  
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/login.css">
+  
+  <!-- Lucide Icons (Pinned CDN) -->
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body class="login-page">
+
+  <main class="login-card">
+    <div class="login-brand">
+      <div class="login-brand-icon">S</div>
+      <div class="login-brand-text">
+        <span class="login-brand-title">SmartAttendance</span>
+        <span class="login-brand-subtitle">Enterprise Academic Suite</span>
+      </div>
+    </div>
+
+    <div class="login-intro">
+      <h1 class="login-title">Sign in to your account</h1>
+      <p class="login-subtitle">Enter your institutional credentials below</p>
+    </div>
+
+    <!-- Quick Demo Accounts -->
+    <section class="demo-pills-section" aria-label="Demo Credentials Auto-fill">
+      <span class="demo-pills-label">Quick Demo Auto-Fill:</span>
+      <div class="demo-pills-grid">
+        <button type="button" class="demo-pill" id="demo-admin">Admin</button>
+        <button type="button" class="demo-pill" id="demo-faculty">Faculty</button>
+        <button type="button" class="demo-pill" id="demo-student">Student</button>
+      </div>
+    </section>
+
+    <!-- Error banner -->
+    <div id="login-error" class="login-alert login-alert-error" style="display: none;" role="alert">
+      <i data-lucide="alert-circle"></i>
+      <span id="login-error-text">Invalid email or password</span>
+    </div>
+
+    <!-- Login Form -->
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-input" 
+          placeholder="name@college.edu" 
+          required 
+          autocomplete="email"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="form-input" 
+          placeholder="••••••••" 
+          required 
+          autocomplete="current-password"
+        >
+      </div>
+
+      <button type="submit" id="btn-login-submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+        <span id="btn-login-text">Sign In</span>
+        <div id="login-spinner" class="spinner" style="display: none; width: 16px; height: 16px; border-width: 2px;"></div>
+      </button>
+    </form>
+
+    <div class="login-footer-info">
+      Secured with JWT &amp; Role-based Access Control
+    </div>
+  </main>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

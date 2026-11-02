@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Dashboard - SmartAttendance</title>
+  <meta name="description" content="Instructor portal to view assigned courses, track daily lecture status, and launch attendance marking.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Key Statistics -->
+      <section class="stat-grid" aria-label="Faculty Metrics">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Assigned Subjects</span>
+            <div class="stat-icon"><i data-lucide="book-open"></i></div>
+          </div>
+          <div class="stat-value" id="stat-subjects">-</div>
+          <div class="stat-subtext" style="color: var(--text-muted);">Active teaching courses</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Assigned Classes</span>
+            <div class="stat-icon"><i data-lucide="layers"></i></div>
+          </div>
+          <div class="stat-value" id="stat-classes">-</div>
+          <div class="stat-subtext" style="color: var(--text-muted);">Academic divisions</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Total Students</span>
+            <div class="stat-icon"><i data-lucide="users"></i></div>
+          </div>
+          <div class="stat-value" id="stat-students">-</div>
+          <div class="stat-subtext" style="color: var(--text-muted);">Enrolled across classes</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Average Attendance</span>
+            <div class="stat-icon"><i data-lucide="trending-up"></i></div>
+          </div>
+          <div class="stat-value" id="stat-avg-pct">-</div>
+          <div class="stat-subtext" style="color: var(--brand-accent);">Across your lectures</div>
+        </div>
+      </section>
+
+      <!-- Assigned Subjects Card -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><i data-lucide="calendar-check"></i> My Assigned Subjects &amp; Today's Status</h2>
+            <p class="card-subtitle">Check pending daily attendance and quickly open marking sheet</p>
+          </div>
+          <a href="/faculty/attendance.html" class="btn btn-primary btn-sm">
+            <i data-lucide="edit-3"></i> Open Attendance Sheet
+          </a>
+        </div>
+        <div class="card-body" style="padding: 0;">
+          <div class="table-container" style="border: none; box-shadow: none;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Subject Code</th>
+                  <th>Subject Name</th>
+                  <th>Class</th>
+                  <th>Lectures Held</th>
+                  <th>Subject Average</th>
+                  <th>Today's Attendance</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="assigned-subjects-tbody">
+                <tr>
+                  <td colspan="7" class="table-loader">
+                    <div class="spinner"></div> Loading assigned subjects...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Sessions Card -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><i data-lucide="clock"></i> Recently Marked Sessions</h2>
+            <p class="card-subtitle">Last attendance entries saved under your account</p>
+          </div>
+          <a href="/faculty/history.html" class="btn btn-secondary btn-sm">View Full History</a>
+        </div>
+        <div class="card-body" style="padding: 0;">
+          <div class="table-container" style="border: none; box-shadow: none;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Subject</th>
+                  <th>Class</th>
+                  <th>Present / Total</th>
+                  <th>Attendance %</th>
+                </tr>
+              </thead>
+              <tbody id="faculty-recent-tbody">
+                <tr>
+                  <td colspan="5" class="table-loader">
+                    <div class="spinner"></div> Loading recent history...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/faculty/dashboard.js"></script>
+</body>
+</html>

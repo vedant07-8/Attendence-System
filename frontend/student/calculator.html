@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>75% Attendance Calculator - SmartAttendance</title>
+  <meta name="description" content="Predictive attendance calculator: compute how many consecutive classes you must attend to achieve 75% eligibility.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Calculator Layout Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px;">
+        
+        <!-- Input & Configuration Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title"><i data-lucide="calculator"></i> Target Attendance Calculator</h2>
+              <p class="card-subtitle">Select an enrolled subject or enter custom numbers</p>
+            </div>
+          </div>
+          <div class="card-body">
+            
+            <div class="form-group">
+              <label for="calc-preset-select" class="form-label">Auto-Fill from My Records</label>
+              <select id="calc-preset-select" class="form-select">
+                <option value="overall">Overall Attendance (All Subjects Combined)</option>
+              </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group">
+                <label for="input-present" class="form-label">Lectures Attended *</label>
+                <input type="number" id="input-present" class="form-input" min="0" value="0">
+              </div>
+              <div class="form-group">
+                <label for="input-total" class="form-label">Total Lectures Held *</label>
+                <input type="number" id="input-total" class="form-input" min="1" value="1">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="input-target" class="form-label">Target Percentage (%)</label>
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <input type="range" id="input-target-slider" min="50" max="95" value="75" step="1" style="flex: 1; accent-color: var(--brand-accent);">
+                <input type="number" id="input-target" class="form-input" min="50" max="100" value="75" style="width: 80px; text-align: center; font-weight: 700;">
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-set-75">Preset 75%</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-set-80">Preset 80%</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-set-85">Preset 85%</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Result / Insight Output Card -->
+        <div class="card" style="display: flex; flex-direction: column;">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title"><i data-lucide="target"></i> Calculation Analysis</h2>
+              <p class="card-subtitle">Target milestone projection &amp; safety buffer</p>
+            </div>
+          </div>
+          <div class="card-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 20px;">
+            
+            <!-- Result Banner -->
+            <div id="calc-result-box" style="padding: 20px; border-radius: var(--radius-md); background-color: var(--bg-subtle); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: var(--font-size-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Current Attendance</div>
+              <div id="result-current-pct" style="font-size: 2.25rem; font-weight: 800; margin: 4px 0;">0%</div>
+              <div id="result-badge-slot" style="margin-bottom: 12px;"></div>
+              <div id="result-instruction" style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.5;">-</div>
+            </div>
+
+            <!-- Mathematical Breakdown Accordion/Box -->
+            <div style="background-color: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px 16px;">
+              <div style="font-size: var(--font-size-xs); font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">
+                <i data-lucide="info" style="display: inline; width: 14px; height: 14px; vertical-align: -2px;"></i> Mathematical Formula
+              </div>
+              <div id="math-formula-text" style="font-family: monospace; font-size: var(--font-size-xs); color: var(--text-primary); line-height: 1.6;">
+                (Present + n) / (Total + n) &gt;= Target / 100
+              </div>
+            </div>
+
+            <!-- Interactive What-If Simulator -->
+            <div style="border-top: 1px solid var(--border-color); padding-top: 16px;">
+              <label class="form-label">Hypothetical Simulation: "What if I attend next N classes?"</label>
+              <div style="display: flex; gap: 10px; align-items: center; margin-top: 6px;">
+                <input type="number" id="sim-attend" class="form-input" min="0" value="5" style="width: 90px; text-align: center;">
+                <span style="font-size: var(--font-size-sm); color: var(--text-secondary);">consecutive classes attended will raise attendance to:</span>
+                <strong id="sim-projected-pct" style="font-size: var(--font-size-base); color: var(--brand-accent);">-</strong>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/student/calculator.js"></script>
+</body>
+</html>

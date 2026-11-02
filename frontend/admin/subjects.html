@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Subjects - SmartAttendance</title>
+  <meta name="description" content="Configure academic subjects, assign faculty instructors, and link courses to classes.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Top Action Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <div class="search-input-wrapper">
+            <i data-lucide="search"></i>
+            <input type="text" id="search-subject" class="form-input" placeholder="Search by name or code..." style="width: 260px;">
+          </div>
+          <select id="filter-class" class="form-select" style="width: 220px;">
+            <option value="">All Classes</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="btn-add-subject">
+          <i data-lucide="plus"></i>
+          <span>Add New Subject</span>
+        </button>
+      </div>
+
+      <!-- Subjects Table Card -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Subject Code</th>
+              <th>Subject Title</th>
+              <th>Class</th>
+              <th>Assigned Faculty</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="subjects-table-body">
+            <tr>
+              <td colspan="5" class="table-loader">
+                <div class="spinner"></div> Loading subjects...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Add / Edit Subject Modal -->
+  <div class="modal-backdrop" id="subject-modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title" id="subject-modal-title">Add New Subject</div>
+        <button class="btn-icon-only" id="subject-modal-close" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="subject-form">
+        <div class="modal-body">
+          <input type="hidden" id="subject-id">
+
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px;">
+            <div class="form-group">
+              <label for="subject-code" class="form-label">Subject Code *</label>
+              <input type="text" id="subject-code" class="form-input" required placeholder="e.g. CS301">
+            </div>
+            <div class="form-group">
+              <label for="subject-name" class="form-label">Subject Title *</label>
+              <input type="text" id="subject-name" class="form-input" required placeholder="e.g. Database Management Systems">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="subject-class" class="form-label">Class Assignment *</label>
+            <select id="subject-class" class="form-select" required>
+              <option value="">Select Class</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="subject-faculty" class="form-label">Assign Faculty Member</label>
+            <select id="subject-faculty" class="form-select">
+              <option value="">-- Unassigned --</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="subject-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-subject">Save Subject</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/admin/subjects.js"></script>
+</body>
+</html>

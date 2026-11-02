@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Students - SmartAttendance</title>
+  <meta name="description" content="Add, edit, and manage enrolled students with class assignments and contact information.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Top Action Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <div class="search-input-wrapper">
+            <i data-lucide="search"></i>
+            <input type="text" id="search-student" class="form-input" placeholder="Search by name, roll, email..." style="width: 260px;">
+          </div>
+          <select id="filter-class" class="form-select" style="width: 220px;">
+            <option value="">All Classes</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="btn-add-student">
+          <i data-lucide="user-plus"></i>
+          <span>Add New Student</span>
+        </button>
+      </div>
+
+      <!-- Students Table Card -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Roll Number</th>
+              <th>Student Name</th>
+              <th>Email</th>
+              <th>Class</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="students-table-body">
+            <tr>
+              <td colspan="7" class="table-loader">
+                <div class="spinner"></div> Loading students...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Add / Edit Student Modal -->
+  <div class="modal-backdrop" id="student-modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title" id="student-modal-title">Add New Student</div>
+        <button class="btn-icon-only" id="student-modal-close" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="student-form">
+        <div class="modal-body">
+          <input type="hidden" id="student-id">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label for="student-name" class="form-label">Full Name *</label>
+              <input type="text" id="student-name" class="form-input" required placeholder="e.g. Aarav Sharma">
+            </div>
+            <div class="form-group">
+              <label for="student-roll" class="form-label">Roll Number *</label>
+              <input type="text" id="student-roll" class="form-input" required placeholder="e.g. CS23A01">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="student-email" class="form-label">Email Address *</label>
+            <input type="email" id="student-email" class="form-input" required placeholder="student@college.edu">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label for="student-class" class="form-label">Class Assignment *</label>
+              <select id="student-class" class="form-select" required>
+                <option value="">Select Class</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="student-phone" class="form-label">Phone Number</label>
+              <input type="text" id="student-phone" class="form-input" placeholder="+91 9876543210">
+            </div>
+          </div>
+
+          <div class="form-group" id="password-group">
+            <label for="student-password" class="form-label">Password * <span id="password-help" style="font-weight: 400; text-transform: none; color: var(--text-muted);">(Min 6 chars)</span></label>
+            <input type="password" id="student-password" class="form-input" placeholder="••••••••">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="student-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-student">Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/admin/students.js"></script>
+</body>
+</html>

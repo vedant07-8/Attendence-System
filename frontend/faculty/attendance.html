@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mark Attendance - SmartAttendance</title>
+  <meta name="description" content="Instructor attendance marking console with instant batch toggles and conflict-free updates.">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-wrapper" id="app-shell">
+    <main class="app-content" id="main-content">
+      
+      <!-- Selection Controls Card -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <h2 class="card-title"><i data-lucide="calendar"></i> Attendance Session Configuration</h2>
+        </div>
+        <div class="card-body">
+          <form id="attendance-config-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; align-items: flex-end;">
+            
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="select-subject" class="form-label">Subject *</label>
+              <select id="select-subject" class="form-select" required>
+                <option value="">Select Assigned Subject</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="select-class" class="form-label">Class</label>
+              <input type="text" id="display-class" class="form-input" readonly placeholder="Auto-selected by subject" style="background-color: var(--bg-subtle);">
+              <input type="hidden" id="select-class">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="select-date" class="form-label">Lecture Date *</label>
+              <input type="date" id="select-date" class="form-input" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="btn-load-sheet" style="height: 40px;">
+              <i data-lucide="users"></i>
+              <span>Load Student Sheet</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Attendance Sheet Container (hidden until loaded) -->
+      <div id="attendance-sheet-wrapper" style="display: none;">
+        
+        <!-- Live Counters & Bulk Actions Bar -->
+        <div class="card" style="margin-bottom: 16px; background-color: var(--bg-subtle);">
+          <div class="card-body" style="padding: 14px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div id="already-marked-alert" style="display: none;">
+                <span class="badge badge-warning" style="padding: 6px 12px; font-size: 0.8rem;">
+                  <i data-lucide="edit-2"></i> Editing Previously Saved Attendance
+                </span>
+              </div>
+              <div style="display: flex; gap: 12px; font-size: var(--font-size-sm);">
+                <span>Total: <strong id="count-total">0</strong></span>
+                <span style="color: var(--success);">Present: <strong id="count-present">0</strong></span>
+                <span style="color: var(--danger);">Absent: <strong id="count-absent">0</strong></span>
+                <span style="color: var(--brand-accent);">Rate: <strong id="count-rate">0%</strong></span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-mark-all-present">
+                <i data-lucide="check-check" style="color: var(--success);"></i>
+                <span>Mark All Present</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-mark-all-absent">
+                <i data-lucide="x-circle" style="color: var(--danger);"></i>
+                <span>Mark All Absent</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Attendance Table -->
+        <div class="table-container" style="margin-bottom: 24px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 80px;">Sr. No</th>
+                <th style="width: 140px;">Roll Number</th>
+                <th>Student Name</th>
+                <th>Institutional Email</th>
+                <th style="width: 220px; text-align: center;">Attendance Status</th>
+              </tr>
+            </thead>
+            <tbody id="attendance-table-body">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div style="display: flex; justify-content: flex-end; gap: 12px;">
+          <button type="button" class="btn btn-secondary" id="btn-reset-sheet">Reset</button>
+          <button type="button" class="btn btn-primary" id="btn-submit-attendance" style="padding: 10px 24px; font-size: var(--font-size-base);">
+            <i data-lucide="save"></i>
+            <span id="btn-submit-text">Save Attendance</span>
+            <div id="submit-spinner" class="spinner" style="display: none; width: 16px; height: 16px; border-width: 2px;"></div>
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/faculty/attendance.js"></script>
+</body>
+</html>
