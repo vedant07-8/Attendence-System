@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         studentClassSelect.innerHTML = '<option value="">Select Class</option>' +
           classes.map(c => `<option value="${c._id}">${UI.escapeHtml(c.name)}</option>`).join('');
+
+        const noClassHint = document.getElementById('no-class-hint');
+        if (noClassHint) {
+          noClassHint.style.display = classes.length === 0 ? 'block' : 'none';
+        }
       }
     } catch (err) {
       console.error('Error loading classes:', err);
